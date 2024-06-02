@@ -49,10 +49,6 @@ install_binutils() {
     check_status "Installed Binutils in ~/.local/share" "Failed to install Binutils in ~/.local/share"
 }
 
-install_rust()
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-}
-
 
 echo_blue "====================================================="
 echo_blue " Install build enssential into .local without using apt
@@ -61,4 +57,3 @@ echo_blue "====================================================="
 install_gcc
 install_make
 install_binutils
-install rust

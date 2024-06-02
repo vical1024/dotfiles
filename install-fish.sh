@@ -28,8 +28,8 @@ echo_blue "====================================================="
 echo_blue " Install fish"
 echo_blue "====================================================="
 
-create_directory "$HOME/.local"
-create_directory "$HOME/.local/bin"
-create_directory "$HOME/.local/share"
+check_directory_without_stop "$HOME/.local"
+check_directory_without_stop "$HOME/.local/bin"
+check_directory_without_stop "$HOME/.local/share"
 
 download_and_build_fish

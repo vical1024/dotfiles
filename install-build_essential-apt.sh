@@ -20,13 +20,6 @@ install_necessary_packages() {
     check_status "Installed necessary packages" "Failed to install necessary packages"
 }
 
-install_rust() {
-    echo_yellow "Installing Rust"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    check_status "Installed Rust" "Failed to install Rust"
-    source $HOME/.cargo/env
-}
-
 
 echo_blue "====================================================="
 echo_blue " Install build essential using apt"
@@ -35,4 +28,3 @@ echo_blue "====================================================="
 setup_mirror_server
 clear_cache_and_update
 install_necessary_packages
-install_rust

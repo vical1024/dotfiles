@@ -16,7 +16,7 @@ clear_cache_and_update() {
 
 install_necessary_packages() {
     echo_yellow "Installing necessary packages"
-    sudo apt install -y build-essential curl git
+    sudo apt install -y build-essential cmake
     check_status "Installed necessary packages" "Failed to install necessary packages"
 }
 

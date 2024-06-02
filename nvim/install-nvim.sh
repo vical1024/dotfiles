@@ -95,19 +95,11 @@ check_status "Downloaded NvChad starter" "Failed to download NvChad starter"
 
 if [ -d "$HOME/.config/nvim" ]; then
     echo_green "NvChad starter downloaded successfully."
+    echo_red "==============================================================================="
+    echo_red "If you just finished install nvim right now,"
+    echo_red "   RUN :MasonInstallAll command after lazy.nvim finishes downloading plugins."
+    echo_red "==============================================================================="
 else
     echo_red "NvChad starter download failed."
-    exit 1
-fi
-
-echo_yellow "Installing Lua dependencies for NvChad"
-
-nvim --headless +PackerSync +qall
-check_status "Installed Lua dependencies for NvChad" "Failed to install Lua dependencies for NvChad"
-
-if nvim --headless +'lua require("lazy")' +qall; then
-    echo_green "NvChad and all dependencies are installed successfully."
-else
-    echo_red "Failed to install NvChad dependencies."
     exit 1
 fi

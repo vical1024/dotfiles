@@ -23,7 +23,7 @@ echo_yellow() {
 }
 
 echo_blue "====================================================="
-echo_blue " Install curl git with a package tool"
+echo_blue " Install curl git using apt"
 echo_blue "====================================================="
 
 check_status() {

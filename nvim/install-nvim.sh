@@ -22,7 +22,7 @@ echo_yellow() {
     echo -e "${YELLOW}$1${NO_COLOR}"
 }
 
-echo_blue "Execute install.sh for nvim"
+echo_blue "Execute install-nvim.sh"
 
 check_status() {
     if [ $? -eq 0 ]; then

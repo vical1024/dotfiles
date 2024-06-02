@@ -1,0 +1,46 @@
+#!/bin/bash
+
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+
+echo_blue() {
+    echo -e "${BLUE}$1${NO_COLOR}"
+}
+
+echo_green() {
+    echo -e "${GREEN}$1${NO_COLOR}"
+}
+
+echo_red() {
+    echo -e "${RED}$1${NO_COLOR}"
+}
+
+echo_yellow() {
+    echo -e "${YELLOW}$1${NO_COLOR}"
+}
+
+echo_blue "Execute install.sh for nvim"
+
+check_status() {
+    if [ $? -eq 0 ]; then
+        echo_green "$1"
+    else
+        echo_red "$2"
+        exit 1
+    fi
+}
+
+echo_yellow "Setting up another mirror server"
+sudo sed -i 's|http://archive.ubuntu.com/ubuntu/|http://mirror.math.princeton.edu/pub/ubuntu/|g' /etc/apt/sources.list
+
+echo_yellow "Clearing local cache and retrying package update"
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt update
+check_status "Cleared local cache and updated package list" "Failed to clear local cache or update package list"
+
+echo_yellow "Installing necessary packages"
+sudo apt install -y build-essential curl git
+check_status "Installed necessary packages" "Failed to install necessary packages"

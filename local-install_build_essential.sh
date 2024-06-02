@@ -80,6 +80,11 @@ install_binutils() {
     check_status "Installed Binutils in ~/.local/share" "Failed to install Binutils in ~/.local/share"
 }
 
+echo_blue "====================================================="
+echo_blue " Install build enssential into .local without using apt
+echo_blue "====================================================="
+
+
 install_gcc
 install_make
 install_binutils

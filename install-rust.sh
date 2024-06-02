@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-. "$SCRIPT_DIR/common.sh"
+. "$SCRIPT_DIR/_common.sh"
 
 install_rust() {
     echo_yellow "Installing Rust"

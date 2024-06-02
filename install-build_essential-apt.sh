@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-. "$SCRIPT_DIR/common.sh"
+. "$SCRIPT_DIR/_common.sh"
 
 setup_mirror_server() {
     echo_yellow "Setting up another mirror server"

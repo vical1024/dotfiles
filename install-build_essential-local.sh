@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-. "$SCRIPT_DIR/common.sh"
+. "$SCRIPT_DIR/_common.sh"
 
 install_gcc() {
     echo_yellow "Installing GCC in ~/.local/share"

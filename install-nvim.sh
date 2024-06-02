@@ -1,6 +1,6 @@
 #!/bin/bash
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-. "$SCRIPT_DIR/common.sh"
+. "$SCRIPT_DIR/_common.sh"
 
 download_and_extract_nvim() {
     local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"

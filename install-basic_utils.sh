@@ -22,7 +22,9 @@ echo_yellow() {
     echo -e "${YELLOW}$1${NO_COLOR}"
 }
 
-echo_blue "Execute install.sh for nvim"
+echo_blue "====================================================="
+echo_blue " Install curl git with a package tool"
+echo_blue "====================================================="
 
 check_status() {
     if [ $? -eq 0 ]; then
@@ -42,5 +44,5 @@ sudo apt update
 check_status "Cleared local cache and updated package list" "Failed to clear local cache or update package list"
 
 echo_yellow "Installing necessary packages"
-sudo apt install -y build-essential curl git
+sudo apt install -y curl git
 check_status "Installed necessary packages" "Failed to install necessary packages"

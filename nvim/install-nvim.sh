@@ -95,10 +95,10 @@ check_status "Downloaded NvChad starter" "Failed to download NvChad starter"
 
 if [ -d "$HOME/.config/nvim" ]; then
     echo_green "NvChad starter downloaded successfully."
-    echo_red "==============================================================================="
+    echo_red "=================================================================================="
     echo_red "If you just finished install nvim right now,"
-    echo_red "   RUN :MasonInstallAll command after lazy.nvim finishes downloading plugins."
-    echo_red "==============================================================================="
+    echo_red "   RUN ':MasonInstallAll' command after lazy.nvim finishes downloading plugins."
+    echo_red "=================================================================================="
 else
     echo_red "NvChad starter download failed."
     exit 1

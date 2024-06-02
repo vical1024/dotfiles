@@ -29,9 +29,24 @@ check_status() {
     fi
 }
 
-create_directory() {
+check_status_non_critical() {
+    if [ $? -eq 0 ]; then
+        echo_green "$1"
+    else
+        echo_red "$2"
+    fi
+}
+
+check_directory_with_stop() {
     if [ ! -d "$1" ]; then
         mkdir -p "$1"
         check_status "Created $1" "Failed to create $1"
+    fi
+}
+
+check_directory_without_stop() {
+    if [ ! -d "$1" ]; then
+        mkdir -p "$1"
+        check_status_non_critical "Created $1" "Failed to create $1"
     fi
 }

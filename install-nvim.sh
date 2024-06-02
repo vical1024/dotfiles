@@ -1,48 +1,12 @@
 #!/bin/bash
-
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-BLUE='\033[1;34m'
-YELLOW='\033[1;33m'
-NO_COLOR='\033[0m'
-
-echo_blue() {
-    echo -e "${BLUE}$1${NO_COLOR}"
-}
-
-echo_green() {
-    echo -e "${GREEN}$1${NO_COLOR}"
-}
-
-echo_red() {
-    echo -e "${RED}$1${NO_COLOR}"
-}
-
-echo_yellow() {
-    echo -e "${YELLOW}$1${NO_COLOR}"
-}
-
-check_status() {
-    if [ $? -eq 0 ]; then
-        echo_green "$1"
-    else
-        echo_red "$2"
-        exit 1
-    fi
-}
-
-create_directory() {
-    if [ ! -d "$1" ]; then
-        mkdir -p "$1"
-        check_status "Created $1" "Failed to create $1"
-    fi
-}
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/common.sh"
 
 download_and_extract_nvim() {
     local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
     local DEST_DIR="$HOME/.local/share/nvim"
 
-    create_directory "$DEST_DIR"
+    check_directory_with_stop "$DEST_DIR"
 
     curl -LO $NVIM_URL
     check_status "Downloaded nvim tar.gz" "Failed to download nvim tar.gz"
@@ -96,9 +60,9 @@ echo_blue "====================================================="
 echo_blue " Install nvim into .local without using apt"
 echo_blue "====================================================="
 
-create_directory "$HOME/.local"
-create_directory "$HOME/.local/bin"
-create_directory "$HOME/.local/share"
+check_directory_without_stop "$HOME/.local"
+check_directory_without_stop "$HOME/.local/bin"
+check_directory_without_stop "$HOME/.local/share"
 download_and_extract_nvim
 backup_existing_nvim_config
 download_nvchad_starter

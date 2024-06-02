@@ -89,7 +89,6 @@ echo_blue "====================================================="
 echo_blue " Install build enssential into .local without using apt
 echo_blue "====================================================="
 
-
 install_gcc
 install_make
 install_binutils

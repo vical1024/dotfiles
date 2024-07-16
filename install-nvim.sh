@@ -7,6 +7,7 @@ download_and_extract_nvim() {
     local DEST_DIR="$HOME/.local/share/nvim"
 
     check_directory_with_stop "$DEST_DIR"
+    cd "$DEST_DIR"
 
     curl -LO $NVIM_URL
     check_status "Downloaded nvim tar.gz" "Failed to download nvim tar.gz"

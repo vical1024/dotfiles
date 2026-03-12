@@ -21,23 +21,25 @@ build_and_install_fish() {
     fi
 }
 
+FISH_SRC_DIR="$HOME/.local/share/fish-shell"
+
 install_fish() {
-    if [ -d "$HOME/.local/share/fish" ]; then
-        echo_yellow "fish is already installed. Use 'update' to update it."
+    if [ -d "$FISH_SRC_DIR" ]; then
+        echo_yellow "fish source already exists. Use 'update' to update it."
         exit 0
     fi
-    git clone https://github.com/fish-shell/fish-shell.git fish
+    git clone https://github.com/fish-shell/fish-shell.git "$FISH_SRC_DIR"
     check_status "Cloned fish-shell repository" "Failed to clone fish-shell repository"
-    cd fish
+    cd "$FISH_SRC_DIR"
     build_and_install_fish
 }
 
 update_fish() {
-    if [ ! -d fish ]; then
-        echo_red "fish-shell source directory not found. Run install first."
+    if [ ! -d "$FISH_SRC_DIR/.git" ]; then
+        echo_red "fish-shell source directory not found or not a git repo. Run install first."
         exit 1
     fi
-    cd fish
+    cd "$FISH_SRC_DIR"
     echo_yellow "Updating fish-shell repository..."
     git reset --hard origin/master
     check_status "Reset fish-shell repository" "Failed to reset fish-shell repository"
@@ -54,7 +56,6 @@ case "${1:-install}" in
         check_directory_without_stop "$HOME/.local"
         check_directory_without_stop "$HOME/.local/bin"
         check_directory_without_stop "$HOME/.local/share"
-        cd "$HOME/.local/share"
         install_fish
         ;;
     update)
@@ -64,7 +65,6 @@ case "${1:-install}" in
         check_directory_without_stop "$HOME/.local"
         check_directory_without_stop "$HOME/.local/bin"
         check_directory_without_stop "$HOME/.local/share"
-        cd "$HOME/.local/share"
         update_fish
         ;;
     *)

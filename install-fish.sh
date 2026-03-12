@@ -2,19 +2,7 @@
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 . "$SCRIPT_DIR/_common.sh"
 
-download_and_build_fish() {
-    if [ ! -d "$HOME/.local/share/fish" ]; then
-        git clone https://github.com/fish-shell/fish-shell.git fish
-        check_status "Cloned fish-shell repository" "Failed to clone fish-shell repository"
-        cd fish
-    else
-        cd fish
-        echo_yellow "fish-shell repository already exists. Updating..."
-        git reset --hard origin/master
-        check_status "Reset fish-shell repository" "Failed to reset fish-shell repository"
-        git pull
-        check_status "Pulled latest changes from fish-shell repository" "Failed to pull latest changes from fish-shell repository"
-    fi
+build_and_install_fish() {
     check_directory_without_stop build
     check_status "Created build directory" "Failed to create build directory"
     cd build
@@ -33,14 +21,55 @@ download_and_build_fish() {
     fi
 }
 
+install_fish() {
+    if [ -d "$HOME/.local/share/fish" ]; then
+        echo_yellow "fish is already installed. Use 'update' to update it."
+        exit 0
+    fi
+    git clone https://github.com/fish-shell/fish-shell.git fish
+    check_status "Cloned fish-shell repository" "Failed to clone fish-shell repository"
+    cd fish
+    build_and_install_fish
+}
 
-echo_blue "====================================================="
-echo_blue " Install fish"
-echo_blue "====================================================="
+update_fish() {
+    if [ ! -d fish ]; then
+        echo_red "fish-shell source directory not found. Run install first."
+        exit 1
+    fi
+    cd fish
+    echo_yellow "Updating fish-shell repository..."
+    git reset --hard origin/master
+    check_status "Reset fish-shell repository" "Failed to reset fish-shell repository"
+    git pull
+    check_status "Pulled latest changes from fish-shell repository" "Failed to pull latest changes from fish-shell repository"
+    build_and_install_fish
+}
 
-check_directory_without_stop "$HOME/.local"
-check_directory_without_stop "$HOME/.local/bin"
-check_directory_without_stop "$HOME/.local/share"
-cd "$HOME/.local/share"
-
-download_and_build_fish
+case "${1:-install}" in
+    install)
+        echo_blue "====================================================="
+        echo_blue " Install fish"
+        echo_blue "====================================================="
+        check_directory_without_stop "$HOME/.local"
+        check_directory_without_stop "$HOME/.local/bin"
+        check_directory_without_stop "$HOME/.local/share"
+        cd "$HOME/.local/share"
+        install_fish
+        ;;
+    update)
+        echo_blue "====================================================="
+        echo_blue " Update fish"
+        echo_blue "====================================================="
+        check_directory_without_stop "$HOME/.local"
+        check_directory_without_stop "$HOME/.local/bin"
+        check_directory_without_stop "$HOME/.local/share"
+        cd "$HOME/.local/share"
+        update_fish
+        ;;
+    *)
+        echo_red "Unknown command: $1"
+        echo "Usage: $0 [install|update]"
+        exit 1
+        ;;
+esac

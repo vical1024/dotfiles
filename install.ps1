@@ -35,9 +35,8 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
-if (Ask "Install Rust?")       { Install-WithWinget "Rustlang.Rustup" "Rust (rustup)" }
-if (Ask "Install Neovim?")     { Install-WithWinget "Neovim.Neovim"   "Neovim" }
-if (Ask "Install Fish Shell?") { Install-WithWinget "fish.fish"        "Fish Shell" }
+if (Ask "Install Rust?")   { Install-WithWinget "Rustlang.Rustup" "Rust (rustup)" }
+if (Ask "Install Neovim?") { Install-WithWinget "Neovim.Neovim"   "Neovim" }
 
 Write-Green "====================================================="
 Write-Green " Done!"

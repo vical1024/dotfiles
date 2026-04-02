@@ -3,7 +3,7 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 . "$SCRIPT_DIR/_common.sh"
 
 download_and_extract_nvim() {
-    local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
+    local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
     local DEST_DIR="$HOME/.local/share/nvim"
 
     check_directory_with_stop "$DEST_DIR"
@@ -12,7 +12,7 @@ download_and_extract_nvim() {
     curl -LO $NVIM_URL
     check_status "Downloaded nvim tar.gz" "Failed to download nvim tar.gz"
 
-    tar -xzf nvim-linux64.tar.gz --one-top-level=nvim --strip-components=1
+    tar -xzf nvim-linux-x86_64.tar.gz --one-top-level=nvim --strip-components=1
     check_status "Extracted nvim tar.gz" "Failed to extract nvim tar.gz"
 
     ln -fs "$HOME/.local/share/nvim/bin/nvim" "$HOME/.local/bin/nvim"
@@ -23,8 +23,8 @@ download_and_extract_nvim() {
         check_status "Added .local/bin to PATH" "Failed to add .local/bin to PATH"
     fi
 
-    if [ -f "nvim-linux64.tar.gz" ]; then
-        rm "nvim-linux64.tar.gz"
+    if [ -f "nvim-linux-x86_64.tar.gz" ]; then
+        rm "nvim-linux-x86_64.tar.gz"
         check_status "Deleted nvim tar.gz" "Failed to delete nvim tar.gz"
     fi
 
